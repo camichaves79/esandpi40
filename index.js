@@ -92,6 +92,13 @@ async function fetchSP500() {
 
 async function fetchPeak() {
   console.log("Fetching historical data to determine the most recent peak.");
+  if (!isMarketOpen()) {
+    console.log("Market is closed. Skipping historical data fetch.");
+    document.getElementById("status").innerText = "Market is closed.";
+    document.getElementById("status").style.color = "gray";
+    return;
+  }
+
   if (!apiKey) {
     console.log("API key is missing. Cannot fetch historical data.");
     document.getElementById("status").innerText = "Please provide an API key.";
